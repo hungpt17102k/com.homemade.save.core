@@ -1,10 +1,13 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace com.homemade.save.core
 {
-    public class SaveService
+    public class SaveService : ISaveService
     {
         public ISave Saver { get => saver; set => saver = value; }
+
+        public int Priority => 0;
 
         private ISave saver;
 
@@ -13,17 +16,6 @@ namespace com.homemade.save.core
         public SaveService(ISave saver)
         {
             this.saver = saver;
-        }
-
-        public void Save(string key, string data)
-        {
-            if (string.IsNullOrEmpty(key))
-            {
-                Debug.Log("<color=red>Error:</color> The key can't be empty or null");
-                return;
-            }
-
-            saver.Save(key, data);
         }
 
         public void Save<T>(string key, T obj)
@@ -47,17 +39,6 @@ namespace com.homemade.save.core
 
             string data = saver.Load(key);
             return JsonUtility.FromJson<T>(data);
-        }
-
-        public string Load(string key)
-        {
-            if (string.IsNullOrEmpty(key))
-            {
-                Debug.Log("<color=red>Error:</color> The key can't be empty or null");
-                return default;
-            }
-
-            return saver.Load(key);
         }
 
         public void Delete(string key)
@@ -85,6 +66,11 @@ namespace com.homemade.save.core
             }
 
             return saver.Exists(key);
+        }
+
+        public async UniTask OnInitialize()
+        {
+            await UniTask.CompletedTask;
         }
     }
 }

@@ -1,3 +1,17 @@
 {
-	"name": "com.homemade.save.core"
+    "name": "com.homemade.save.core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7a68f8d95a18a3744916b5c69d4fc564",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
