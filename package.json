@@ -1,6 +1,6 @@
 {
   "name": "com.homemade.save.core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "com.homemade.save.core",
   "description": "Small package about core save",
   "unity": "2021.1",

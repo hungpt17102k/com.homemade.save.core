@@ -66,14 +66,30 @@ namespace com.homemade.save.core
         {
             DirectoryInfo info = new DirectoryInfo(path);
             FileInfo[] files = info.GetFiles();
+
             for (int i = 0; i < files.Length; i++)
-            {
-                files[i].Delete();
+            { 
+                try
+                {
+                    files[i].Delete();
+                }
+                catch (IOException e)
+                {
+                    Debug.Log(e.Message);
+                }
             }
+
             DirectoryInfo[] dirs = info.GetDirectories();
             for (int i = 0; i < dirs.Length; i++)
             {
-                dirs[i].Delete(true);
+                try
+                {
+                    dirs[i].Delete(true);
+                }
+                catch (IOException e)
+                {
+                    Debug.Log(e.Message);
+                }
             }
         }
 
