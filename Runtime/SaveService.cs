@@ -1,3 +1,5 @@
+using com.homemade.encode.core;
+using com.homemade.serialize.core;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -5,11 +7,15 @@ namespace com.homemade.save.core
 {
     public class SaveService : ISaveService
     {
+        private ISave saver = new NullSave();
+        private IEncoder encoder = new NullEncoder();
+        private ISerializer serializer = new NullSerializer();
+
         public ISave Saver { get => saver; set => saver = value; }
+        public IEncoder Encoder { get => encoder; set => encoder = value; }
+        public ISerializer Serializer { get => serializer; set => serializer = value; }
 
         public int Priority => 0;
-
-        private ISave saver;
 
         public SaveService() { }
 
@@ -26,19 +32,27 @@ namespace com.homemade.save.core
                 return;
             }
 
-            saver.Save(key, JsonUtility.ToJson(obj));
+            string serialized = serializer.Serialize(obj);
+            string encoded = encoder.Encode(serialized);
+            saver.Save(key, encoded);
         }
 
         public T Load<T>(string key)
         {
+            
+
             if (string.IsNullOrEmpty(key))
             {
                 Debug.Log("<color=red>Error:</color> The key can't be empty or null");
                 return default;
             }
 
+            T result = default;
             string data = saver.Load(key);
-            return JsonUtility.FromJson<T>(data);
+            string decoded = encoder.Decode(data);
+            result = serializer.Deserialize<T>(decoded);
+
+            return result;
         }
 
         public void Delete(string key)

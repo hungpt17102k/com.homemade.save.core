@@ -1,6 +1,6 @@
 {
   "name": "com.homemade.save.core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "displayName": "com.homemade.save.core",
   "description": "Small package about core save",
   "unity": "2021.1",
@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "com.homemade.core": "1.0.0",
-    "com.homemade.unitask": "2.5.4"
+    "com.homemade.unitask": "2.5.4",
+    "com.homemade.encode.core": "1.0.0",
+    "com.homemade.serialize.core": "1.0.0"
   }
 }
